@@ -4,9 +4,11 @@
 
 ## Overview
 
-Meet App allows users to search for events in their cities.
+Meet App allows users to search, schedule an attend events in their cities.
 
-This app is built using a test-driven development technique (TDD) and is designed as a serverless, progressive web app (PWA).
+This app is built using a test-driven development technique (TDD) and is designed as a serverless, progressive web app (PWA). 
+
+MeetApp uses Google Calendar as an API to retrieve information about upcoming events. As this API is protected, authorization access is required. The access authorization (token) is being handled by the serverless backend hosted on AWS.
 
 ## Features, User Stories and BDD Scenarios
 
