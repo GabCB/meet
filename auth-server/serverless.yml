@@ -12,17 +12,38 @@
 # Happy Coding!
 
 service: auth-server
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-central-1
+  timeout: 60 # optional, in seconds, default is 6
+  environment:
+  # Values can be found in config.js file, so CLIENT_ID etc can be accessed in handler.js file
+    CLIENT_ID: ${file(config.json):CLIENT_ID}
+    CLIENT_SECRET: ${file(config.json):CLIENT_SECRET}
+    PROJECT_ID: ${file(config.json):PROJECT_ID}
+    CALENDAR_ID: ${file(config.json):CALENDAR_ID}
+# Will contain all Lambda functions to be created in serverless "auth-server"
+functions:
+  getAuthURL:
+    handler: handler.getAuthURL
+    events:
+      - http:
+          path: api/get-auth-url
+          method: get
+
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
-frameworkVersion: '3'
+# frameworkVersion: '3'
 
-provider:
-  name: aws
-  runtime: nodejs12.x
+# provider:
+  #name: aws
+  #runtime: nodejs12.x
 
 # you can overwrite defaults here
 #  stage: dev
@@ -58,9 +79,9 @@ provider:
 #    - include-me.js
 #    - include-me-dir/**
 
-functions:
-  hello:
-    handler: handler.hello
+#functions:
+  #hello:
+    #handler: handler.hello
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
