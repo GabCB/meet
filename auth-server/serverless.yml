@@ -32,6 +32,12 @@ functions:
       - http:
           path: api/get-auth-url
           method: get
+  getAccessToken:
+    handler: handler.getAccessToken
+    events:
+      - http:
+          path: api/token/{code}
+          method: get
 
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
