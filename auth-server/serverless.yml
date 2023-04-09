@@ -38,7 +38,12 @@ functions:
       - http:
           path: api/token/{code}
           method: get
-
+  getCalendarEvents:
+    handler: handler.getCalendarEvents
+    events:
+      - http:
+          path: api/get-events/{access_token}
+          method: get
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name
