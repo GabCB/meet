@@ -105,7 +105,7 @@ module.exports.getAccessToken = async (event) => {
     });
 };
 
-module.exports.getCalendarEvents = event => {
+module.exports.getCalendarEvents = async (event) => {
 
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
@@ -113,7 +113,7 @@ module.exports.getCalendarEvents = event => {
     redirect_uris[0]
   );
   // Decode authorization code extracted from the URL query
-  const access_token = decodeURIComponent(`${event.pathParameters.code}`);
+  const access_token = decodeURIComponent(`${event.pathParameters.access_token}`);
   oAuth2Client.setCredentials({ access_token });
 
   return new Promise ((resolve, reject) => {
@@ -142,7 +142,7 @@ module.exports.getCalendarEvents = event => {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Credentials": true,
       },
-      body: JSON.stringify({ events: results.data.items })
+      body: JSON.stringify({ events: results.data.items }),
     };
   })
   .catch( err => {
