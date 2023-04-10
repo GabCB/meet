@@ -155,4 +155,4 @@ module.exports.getCalendarEvents = event => {
       body: JSON.stringify(err)
     };
   });
-}
+};
