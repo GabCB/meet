@@ -156,3 +156,9 @@ module.exports.getCalendarEvents = async (event) => {
     };
   });
 };
+
+
+//URL endpoints
+// GET - https://y2jdjhxe84.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url
+// GET - https://y2jdjhxe84.execute-api.eu-central-1.amazonaws.com/dev/api/token/{code}
+// GET - https://y2jdjhxe84.execute-api.eu-central-1.amazonaws.com/dev/api/get-events/{access_token}
