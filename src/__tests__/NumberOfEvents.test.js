@@ -5,7 +5,8 @@ import NumberOfEvents from '../NumberOfEvents';
 describe('<NumberOfEvents /> component', () => {
   let NumberOfEventsWrapper;
   beforeAll(() => {
-    NumberOfEventsWrapper = shallow(<NumberOfEvents updateNumberOfEvents={() => {}} updateEvents={() => {}}/>);
+    NumberOfEventsWrapper = shallow(<NumberOfEvents updateEvents={() => {}} />);
+    //NumberOfEventsWrapper = shallow(<NumberOfEvents updateNumberOfEvents={() => {}} updateEvents={() => {}}/>);
   }) 
 
   // test 1: checks the basic component is rendered
