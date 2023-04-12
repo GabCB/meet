@@ -8,9 +8,7 @@ import './nprogress.css';
 class App extends Component {
   state = {
     events: [],
-    locations: [],
-    eventCount: 32,
-    selectedCity: null,
+    locations: []
 
   }
 
