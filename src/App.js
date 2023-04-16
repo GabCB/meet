@@ -44,7 +44,7 @@ class App extends Component {
         this.setState({
           events: eventsToShow,
           selectedLocation: location,
-          numberOfEvents: inputNumber
+          numberOfEvents: this.state.numberOfEvents
         });
       });
     } else {
@@ -55,7 +55,7 @@ class App extends Component {
         const eventsToShow = locationEvents.slice(0, inputNumber);
         this.setState({
           events: eventsToShow,
-          numberOfEvents: inputNumber 
+          numberOfEvents: inputNumber
         });
       })
     }
