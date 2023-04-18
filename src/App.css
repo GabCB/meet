@@ -131,13 +131,6 @@ input[type="number"] {
 .Alert {
   /*position: fixed;*/
   top: 20px;
-  left: 0;
-  width: 100%;
-}
-
-.Alert p {
-  color: #fff;
-  margin: 0;
 }
 
 .data-vis-wrapper {
