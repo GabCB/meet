@@ -5,13 +5,15 @@ import CitySearch from './CitySearch';
 import NumberOfEvents from "./NumberOfEvents";
 import { getEvents, extractLocations } from './api';
 import './nprogress.css';
+import { WarningAlert } from "./Alert";
 
 class App extends Component {
   state = {
     events: [],
     locations: [],
     selectedLocation: 'all',
-    numberOfEvents: 32
+    numberOfEvents: 32,
+    warningText:''
   };
 
   componentDidMount() {
@@ -57,13 +59,29 @@ class App extends Component {
           events: eventsToShow,
           numberOfEvents: inputNumber
         });
-      })
+      });
+
+      if (!navigator.onLine) {
+        this.setState ({
+          warningText: 'You seem to be offline; events are being pulled from cache.'
+        });
+      } else {
+        this.setState({
+          warningText: ''
+        });
+      }
+
     }
   }
 
   render() {
+    if (this.state.showWelcomeScreen === undefined) return <div className="App" />
+
     return (
       <div className="App">
+        <WarningAlert text={this.state.warningText} />
+        <h1>Meet App</h1>
+        <h4>Choose your nearest city</h4>
         <CitySearch  locations={this.state.locations} updateEvents={this.updateEvents} />
         <NumberOfEvents numberOfEvents={this.state.numberOfEvents} updateEvents={this.updateEvents} />
         <EventList events={this.state.events} />
