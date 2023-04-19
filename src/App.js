@@ -19,7 +19,7 @@ class App extends Component {
   async componentDidMount() {
     this.mounted = true;
     //to view the changes on localhost
-    if (window.location.href.startsWith("http://localhost") || !navigator.onLine) {
+    if (window.location.href.startsWith("http://localhost")) {
       getEvents().then((events) => {
         if (this.mounted) {
         this.setState({ events, locations: extractLocations(events) });
@@ -33,15 +33,14 @@ class App extends Component {
     const code = searchParams.get("code");
     this.setState({ showWelcomeScreen: !(code || isTokenValid) });
     if ((code || isTokenValid) && this.mounted) {
-    getEvents().then((events) => {
-      if (this.mounted) {
-        this.setState({ events: events.slice(0, this.state.numberOfEvents), locations: extractLocations(events) }); //this.setState({ events, locations: extractLocations(events) });
-      }
-    });
-  }
+      getEvents().then((events) => {
+        if (this.mounted) {
+          this.setState({ events: events.slice(0, this.state.numberOfEvents), locations: extractLocations(events) }); //this.setState({ events, locations: extractLocations(events) });
+        }
+      });
     }
+  }
     
-
   componentWillUnmount(){
     this.mounted = false;
   }
@@ -63,7 +62,7 @@ class App extends Component {
         this.setState({
           events: eventsToShow,
           selectedLocation: location,
-          numberOfEvents: this.state.numberOfEvents
+          numberOfEvents: inputNumber
         });
       });
     } else {
@@ -81,13 +80,19 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.showWelcomeScreen === undefined)
+    if (this.state.showWelcomeScreen === undefined) return <div className="App" />
+
     return (
       <div className="App">
-        <CitySearch  locations={this.state.locations} updateEvents={this.updateEvents} />
-        <NumberOfEvents numberOfEvents={this.state.numberOfEvents} updateEvents={this.updateEvents} />
+        <div>
+          <h1>Meet App</h1>
+          <CitySearch  locations={this.state.locations} updateEvents={this.updateEvents} />
+          <NumberOfEvents numberOfEvents={this.state.numberOfEvents} updateEvents={this.updateEvents} />
+        </div>
+        
         <EventList events={this.state.events} />
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
+        
       </div>
     );
   }
