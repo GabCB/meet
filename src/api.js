@@ -44,7 +44,7 @@ const removeQuery = () => {
 const getToken = async (code) => {
   const encodeCode = encodeURIComponent(code);
   const { access_token } = await fetch (
-    'https://y2jdjhxe84.execute-api.eu-central-1.amazonaws.com/dev/api/token' + '/' + encodeCode
+    'https://y2jdjhxe84.execute-api.eu-central-1.amazonaws.com/dev/api/token/' + encodeCode
   )
     .then ((res) => {
       return res.json();
@@ -56,7 +56,6 @@ const getToken = async (code) => {
 
 export const getEvents = async () => {
   NProgress.start();
-
   if (window.location.href.startsWith('http://localhost')) {
     NProgress.done();
     return mockData;
@@ -66,13 +65,13 @@ export const getEvents = async () => {
   if (!navigator.onLine) {
     const data = localStorage.getItem("lastEvents");
     NProgress.done();
-    return data?JSON.parse(data).events:[];;
+    return data?JSON.parse(data).events:[];
   }
 
   const token = await getAccessToken();
     if (token) {
     removeQuery();
-    const url = 'https://y2jdjhxe84.execute-api.eu-central-1.amazonaws.com/dev/api/get-events' + '/' + token;
+    const url = 'https://y2jdjhxe84.execute-api.eu-central-1.amazonaws.com/dev/api/get-events/' + token;
     const result = await axios.get(url);
     if (result.data) {
       var locations = extractLocations(result.data.events);
