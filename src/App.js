@@ -19,7 +19,7 @@ class App extends Component {
   async componentDidMount() {
     this.mounted = true;
     //to view the changes on localhost
-    if (window.location.href.startsWith("http://localhost")) {
+    if (window.location.href.startsWith("http://localhost") || !navigator.onLine) {
       getEvents().then((events) => {
         if (this.mounted) {
         this.setState({ events, locations: extractLocations(events) });
