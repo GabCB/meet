@@ -3,11 +3,11 @@ import "./App.css";
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from "./NumberOfEvents";
-import WelcomeScreen from './WelcomeScreen';
 import EventGenre from './EventGenre';
 import { WarningAlert } from './Alert';
 import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import './nprogress.css';
+import WelcomeScreen from './WelcomeScreen';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 
@@ -17,15 +17,16 @@ class App extends Component {
     locations: [],
     selectedLocation: 'all',
     numberOfEvents: 32,
-    showWelcomeScreen: undefined
+    showWelcomeScreen: undefined,
+    data: []
   };
 
   // API data for charts
   getData = () => {
     const {locations, events} = this.state;
     const data = locations.map((location)=>{
-      const number = events.filter((event) => event.location === location).length
-      const city = location.split(', ').shift()
+      const number = events.filter((event) => event.location === location).length;
+      const city = location.split(', ').shift();
       return {city, number};
     })
     return data;
@@ -33,27 +34,16 @@ class App extends Component {
 
   async componentDidMount() {
     this.mounted = true;
-    //to view the changes on localhost
-    if (window.location.href.startsWith("http://localhost")) {
-      getEvents().then((events) => {
-        if (this.mounted) {
-        this.setState({ events, locations: extractLocations(events) });
-        }
-      });
-    }
-    
     const accessToken = localStorage.getItem('access_token');
-    console.log ('access_token', accessToken);
-    const isTokenValid = accessToken !== null && navigator.onLine ? await checkToken(accessToken) : false;
+    const isTokenValid = (await checkToken(accessToken)).error ? false : true;
     //console.log ("is token valid?", isTokenValid);
     const searchParams = new URLSearchParams(window.location.search);
-
     const code = searchParams.get("code");
-    this.setState({ showWelcomeScreen: !(code || isTokenValid) && navigator.onLine});
+    this.setState({ showWelcomeScreen: !(code || isTokenValid) });
     if ((code || isTokenValid) && this.mounted) {
       getEvents().then((events) => {
         if (this.mounted) {
-          this.setState({ events: events.slice(0, this.state.numberOfEvents), locations: extractLocations(events) }); //this.setState({ events, locations: extractLocations(events) });
+          this.setState({ events, locations: extractLocations(events) }); //this.setState({ events, locations: extractLocations(events) });
         }
       });
     }
@@ -62,7 +52,7 @@ class App extends Component {
   componentWillUnmount(){
     this.mounted = false;
   }
-
+  
   updateNumberOfEvents(number) { 
     this.setState({
       numberOfEvents: number,
@@ -111,8 +101,8 @@ class App extends Component {
           <NumberOfEvents numberOfEvents={this.state.numberOfEvents} updateEvents={this.updateEvents} />
           <WarningAlert text={offlineMessage}></WarningAlert>
         </div>
-        <h4>Events in each city</h4>
         <div className="data-vis-wrapper">
+        <h4>Events in each city</h4>
           <EventGenre events={this.state.events} />
           <ResponsiveContainer height={400} >
             <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }} >
@@ -131,6 +121,9 @@ class App extends Component {
       </div>
     );
   }
+
+  
+
 }
 
 export default App;
