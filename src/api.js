@@ -22,7 +22,7 @@ export const checkToken = async (accessToken) => {
     `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
   )
     .then((res) => res.json())
-    .catch((error) => error.json());
+    .catch((error) => console.log(error));
 
     return result;
 };
@@ -50,8 +50,9 @@ const getToken = async (code) => {
       return res.json();
     })
     .catch ((error) => error);
-      access_token && localStorage.setItem("access_token", access_token);
-      return access_token;
+
+    access_token && localStorage.setItem("access_token", access_token);
+    return access_token;
   };
 
 export const getEvents = async () => {
@@ -69,7 +70,8 @@ export const getEvents = async () => {
   }
 
   const token = await getAccessToken();
-    if (token) {
+
+  if (token) {
     removeQuery();
     const url = 'https://y2jdjhxe84.execute-api.eu-central-1.amazonaws.com/dev/api/get-events/' + token;
     const result = await axios.get(url);
