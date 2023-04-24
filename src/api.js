@@ -22,9 +22,9 @@ export const checkToken = async (accessToken) => {
     `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
   )
     .then((res) => res.json())
-    .catch((error) => error.json());
+    .catch((error) => error);
 
-    return result.error ? false : true;
+    return result;
 };
 
 const removeQuery = () => {
@@ -65,7 +65,7 @@ export const getEvents = async () => {
   if (!navigator.onLine) {
     const data = localStorage.getItem("lastEvents");
     NProgress.done();
-    return data?JSON.parse(data).events:[];
+    return data ? JSON.parse(data).events : [];
   }
 
   const token = await getAccessToken();
