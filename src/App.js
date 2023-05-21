@@ -8,6 +8,7 @@ import WelcomeScreen from './WelcomeScreen';
 import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import './nprogress.css';
 import { WarningAlert } from './Alert';
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 class App extends Component {
   state = {
@@ -126,7 +127,7 @@ class App extends Component {
               <XAxis type="category" dataKey="city" name="city" />
               <YAxis type="number" dataKey="number" name="number of events" allowDecimals={false} />
               <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-              <Scatter data={this.getData()} fill="#ffffff" />
+              <Scatter data={this.getData()} fill="#c99797" />
           </ScatterChart>
         </ResponsiveContainer>
         </div>
