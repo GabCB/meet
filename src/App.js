@@ -29,7 +29,7 @@ class App extends Component {
     
     const accessToken = localStorage.getItem('access_token');
     console.log ('access_token', accessToken);
-    const isTokenValid = accessToken (await checkToken(accessToken)).error ? false : true
+    const isTokenValid = (await checkToken(accessToken)).error ? false : true
     console.log ("is token valid?", isTokenValid);
     const searchParams = new URLSearchParams(window.location.search);
 
