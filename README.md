@@ -1,6 +1,15 @@
 # Meet App
 
+[!Meet App](https://i.imgur.com/gAunlPc.png)
+
 ## Table of Contents
+-[Overview](#overview)
+-[Features, User Stories and BDD Scenarios](#features-user-stories-and-bdd-scenarios)
+-[Technologies & Resources used](#technologies--resources-used)
+-[Dependencies](#dependencies)
+-[Dev Dependencies](#dev-dependencies)
+-[Links](#links)
+
 
 ## Overview
 
