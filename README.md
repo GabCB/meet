@@ -133,6 +133,6 @@ Google Calendar API
 
 
 ## Links
-[Live site URL](https://gabcb.github.io/meet/)
-[Code Url](https://github.com/GabCB/meet)
+[Live site URL](https://gabcb.github.io/meet/) <br>
+[Code Url](https://github.com/GabCB/meet) <br>
 
